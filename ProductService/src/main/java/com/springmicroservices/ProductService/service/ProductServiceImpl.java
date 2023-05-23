@@ -1,6 +1,7 @@
 package com.springmicroservices.ProductService.service;
 
 import com.springmicroservices.ProductService.entity.Product;
+import com.springmicroservices.ProductService.exception.ProductServiceCustomException;
 import com.springmicroservices.ProductService.model.ProductRequest;
 import com.springmicroservices.ProductService.model.ProductResponse;
 import com.springmicroservices.ProductService.repository.ProductRepository;
@@ -33,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
 
         log.info("Get the product for productId: {}",id);
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product with given id is not found"));
+                .orElseThrow(() -> new ProductServiceCustomException("Product with given id is not found","PRODUCT_NOT_FOUND"));
 
         ProductResponse pr = ProductResponse.builder()
                 .productId(product.getProductId())
