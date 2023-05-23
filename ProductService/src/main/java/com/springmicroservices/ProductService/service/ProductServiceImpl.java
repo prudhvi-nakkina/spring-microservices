@@ -2,6 +2,7 @@ package com.springmicroservices.ProductService.service;
 
 import com.springmicroservices.ProductService.entity.Product;
 import com.springmicroservices.ProductService.model.ProductRequest;
+import com.springmicroservices.ProductService.model.ProductResponse;
 import com.springmicroservices.ProductService.repository.ProductRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,21 @@ public class ProductServiceImpl implements ProductService {
 
         log.info("Product Created");
         return product.getProductId();
+    }
+
+    @Override
+    public ProductResponse getProductById(long id) {
+
+        log.info("Get the product for productId: {}",id);
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product with given id is not found"));
+
+        ProductResponse pr = ProductResponse.builder()
+                .productId(product.getProductId())
+                .productName(product.getProductName())
+                .price(product.getPrice())
+                .quantity(product.getQuantity())
+                .build();
+        return pr;
     }
 }
