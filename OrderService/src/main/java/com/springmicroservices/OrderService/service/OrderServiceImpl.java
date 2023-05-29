@@ -50,11 +50,11 @@ public class OrderServiceImpl implements OrderService {
                                                 .build();
 
         String orderStatus = null;
-        
+
         try {
             paymentService.doPayment(paymentRequest);
             log.info("Payment done successfully, changing order status");
-            orderStatus = "PLACED"
+            orderStatus = "PLACED";
         } catch (Exception e) {
             log.error("Error occured while processing payment");
             orderStatus = "PAYMENT_FAILED";
