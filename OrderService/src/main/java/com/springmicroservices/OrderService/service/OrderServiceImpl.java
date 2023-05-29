@@ -1,6 +1,8 @@
 package com.springmicroservices.OrderService.service;
 
 import com.springmicroservices.OrderService.entity.Order;
+import com.springmicroservices.OrderService.external.Request.PaymentRequest;
+import com.springmicroservices.OrderService.external.client.PaymentService;
 import com.springmicroservices.OrderService.external.client.ProductService;
 import com.springmicroservices.OrderService.model.OrderRequest;
 import com.springmicroservices.OrderService.repository.OrderRepository;
@@ -19,6 +21,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private PaymentService paymentService;
     @Override
     public long placeOrder(OrderRequest orderRequest) {
         log.info("Placing Order Request: {}", orderRequest);
@@ -36,6 +41,29 @@ public class OrderServiceImpl implements OrderService {
                 .build();
 
         order = orderRepository.save(order);
+
+        log.info("Calling Payment Service to initiate Payment");
+        PaymentRequest paymentRequest = PaymentRequest.builder()
+                        .orderId(order.getId())
+                                .paymentMode(orderRequest.getPaymentMode())
+                                        .amount(orderRequest.getTotalAmount())
+                                                .build();
+
+        String orderStatus = null;
+        
+        try {
+            paymentService.doPayment(paymentRequest);
+            log.info("Payment done successfully, changing order status");
+            orderStatus = "PLACED"
+        } catch (Exception e) {
+            log.error("Error occured while processing payment");
+            orderStatus = "PAYMENT_FAILED";
+        }
+
+        order.setOrderStatus(orderStatus);
+
+        orderRepository.save(order);
+
         log.info("Order Placed Successfully with Order ID: {}", order.getId());
         return order.getId();
     }
