@@ -1,4 +1,4 @@
-package com.springmicroservices.ProductService.model;
+package com.springmicroservices.OrderService.external.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
