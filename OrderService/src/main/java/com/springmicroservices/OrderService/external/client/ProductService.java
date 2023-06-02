@@ -16,7 +16,7 @@ public interface ProductService {
     ResponseEntity<Void> reduceQuantity(@PathVariable long id,
                                                @RequestParam long quantity);
 
-    default void fallback(Exception e) {
+    default ResponseEntity<Void> fallback(Exception e) {
         throw new CustomException("Payment service is down", "UNAVAILABLE", 500);
     }
 }

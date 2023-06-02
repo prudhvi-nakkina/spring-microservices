@@ -44,7 +44,7 @@ public class OrderServiceApplication {
 						)
 				)
 		);
-		return new RestTemplate();
+		return restTemplate;
 	}
 
 	@Bean
