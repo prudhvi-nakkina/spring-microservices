@@ -29,6 +29,7 @@ public class ProductController {
         return new ResponseEntity<>(productService.getProductById(productId),HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('Admin') || hasAuthority('Customer') || hasAuthority('SCOPE_internal')")
     @PutMapping("/reduceQuantity/{id}")
     public ResponseEntity<Void> reduceQuantity(@PathVariable long id,
                                                @RequestParam long quantity) {
