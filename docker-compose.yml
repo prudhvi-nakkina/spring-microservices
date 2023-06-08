@@ -31,3 +31,39 @@ services:
     depends_on:
       configserver:
         condition: service_healthy
+  orderservice:
+    image: 'vmahesh8165/orderservice:latest'
+    container_name: orderservice
+    ports:
+      - '8082:8082'
+    environment:
+      - EUREKA_SERVER_ADDRESS=http://serviceregistry:8761/eureka
+      - DB_HOST=host.docker.internal
+      - CONFIG_SERVER_URL=configserver
+    depends_on:
+      configserver:
+        condition: service_healthy
+  productservice:
+    image: 'vmahesh8165/productservice:latest'
+    container_name: productservice
+    ports:
+      - '8080:8080'
+    environment:
+      - EUREKA_SERVER_ADDRESS=http://serviceregistry:8761/eureka
+      - DB_HOST=host.docker.internal
+      - CONFIG_SERVER_URL=configserver
+    depends_on:
+      configserver:
+        condition: service_healthy
+  paymentservice:
+    image: 'vmahesh8165/paymentservice:latest'
+    container_name: paymentservice
+    ports:
+      - '8081:8081'
+    environment:
+      - EUREKA_SERVER_ADDRESS=http://serviceregistry:8761/eureka
+      - DB_HOST=host.docker.internal
+      - CONFIG_SERVER_URL=configserver
+    depends_on:
+      configserver:
+        condition: service_healthy
