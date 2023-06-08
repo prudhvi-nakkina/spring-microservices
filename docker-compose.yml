@@ -7,7 +7,7 @@ services:
     ports:
       - '8761:8761'
   configserver:
-    image: 'springmicroservices/configserver:0.0.1'
+    image: 'vmahesh8165/configserver:0.0.1'
     container_name: configserver
     ports:
       - '9296:9296'
@@ -21,7 +21,7 @@ services:
     depends_on:
       - serviceregistry
   cloudgateway:
-    image: 'springmicroservices/cloudgateway:latest'
+    image: 'vmahesh8165/cloudgateway:latest'
     container_name: cloudgateway
     ports:
       - '9090:9090'
