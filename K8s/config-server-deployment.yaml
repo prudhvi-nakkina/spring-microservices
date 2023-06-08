@@ -1,19 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: congig-server-app
+  name: config-server-app
 spec:
   selector:
     matchLabels:
-      app: congig-server-app
+      app: config-server-app
   template:
     metadata:
       labels:
-        app: congig-server-app
+        app: config-server-app
     spec:
       containers:
-      - name: congig-server-app
+      - name: config-server-app
         image: vmahesh8165/configserver
+        imagePullPolicy: Always
         ports:
         - containerPort: 9296
         env:
