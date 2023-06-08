@@ -27,7 +27,7 @@ metadata:
   name: eureka
 spec:
   # headless service - sticky
-  clusterIp: None
+  clusterIP: None
   selector:
     app: eureka
   ports:
