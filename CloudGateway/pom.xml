@@ -110,6 +110,19 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<configuration>
+					<from>
+						<image>openjdk:17</image>
+					</from>
+					<to>
+						<image>registry.hub.docker.com/vmahesh8165/cloudgateway</image>
+						<tags>0.0.1</tags>
+					</to>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
