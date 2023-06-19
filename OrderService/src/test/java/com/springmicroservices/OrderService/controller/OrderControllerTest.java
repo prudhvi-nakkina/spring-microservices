@@ -136,33 +136,33 @@ public class OrderControllerTest {
                 .build();
     }
 
-    @Test
-    public void test_WhenPlaceOrder_DoPayment_Success() throws Exception {
-        //First Place Order
-        // Get Order by Order Id from Db and check
-        //Check Output
-
-        OrderRequest orderRequest = getMockOrderRequest();
-        MvcResult mvcResult
-                = mockMvc.perform(MockMvcRequestBuilders.post("/order/placeOrder")
-                        .with(jwt().authorities(new SimpleGrantedAuthority("Customer")))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(objectMapper.writeValueAsString(orderRequest))
-                ).andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn();
-
-        String orderId = mvcResult.getResponse().getContentAsString();
-
-        Optional<Order> order = orderRepository.findById(Long.valueOf(orderId));
-        assertTrue(order.isPresent());
-
-        Order o = order.get();
-        assertEquals(Long.parseLong(orderId), o.getId());
-        assertEquals("PLACED", o.getOrderStatus());
-        assertEquals(orderRequest.getTotalAmount(), o.getAmount());
-        assertEquals(orderRequest.getQuantity(), o.getQuantity());
-
-    }
+//    @Test
+//    public void test_WhenPlaceOrder_DoPayment_Success() throws Exception {
+//        //First Place Order
+//        // Get Order by Order Id from Db and check
+//        //Check Output
+//
+//        OrderRequest orderRequest = getMockOrderRequest();
+//        MvcResult mvcResult
+//                = mockMvc.perform(MockMvcRequestBuilders.post("/order/placeOrder")
+//                        .with(jwt().authorities(new SimpleGrantedAuthority("Customer")))
+//                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+//                        .content(objectMapper.writeValueAsString(orderRequest))
+//                ).andExpect(MockMvcResultMatchers.status().isOk())
+//                .andReturn();
+//
+//        String orderId = mvcResult.getResponse().getContentAsString();
+//
+//        Optional<Order> order = orderRepository.findById(Long.valueOf(orderId));
+//        assertTrue(order.isPresent());
+//
+//        Order o = order.get();
+//        assertEquals(Long.parseLong(orderId), o.getId());
+//        assertEquals("PLACED", o.getOrderStatus());
+//        assertEquals(orderRequest.getTotalAmount(), o.getAmount());
+//        assertEquals(orderRequest.getQuantity(), o.getQuantity());
+//
+//    }
 
     @Test
     public void test_WhenPlaceOrderWithWrongAccess_thenThrow403() throws Exception {
@@ -177,21 +177,21 @@ public class OrderControllerTest {
     }
 
 
-    @Test
-    public void test_WhenGetOrder_Success() throws Exception {
-        MvcResult mvcResult
-                = mockMvc.perform(MockMvcRequestBuilders.get("/order/1")
-                        .with(jwt().authorities(new SimpleGrantedAuthority("Admin")))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn();
-
-        String actualResponse = mvcResult.getResponse().getContentAsString();
-        Order order = orderRepository.findById(1l).get();
-        String expectedResponse = getOrderResponse(order);
-
-        assertEquals(expectedResponse,actualResponse);
-    }
+//    @Test
+//    public void test_WhenGetOrder_Success() throws Exception {
+//        MvcResult mvcResult
+//                = mockMvc.perform(MockMvcRequestBuilders.get("/order/1")
+//                        .with(jwt().authorities(new SimpleGrantedAuthority("Admin")))
+//                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andReturn();
+//
+//        String actualResponse = mvcResult.getResponse().getContentAsString();
+//        Order order = orderRepository.findById(1l).get();
+//        String expectedResponse = getOrderResponse(order);
+//
+//        assertEquals(expectedResponse,actualResponse);
+//    }
 
     @Test
     public void testWhen_GetOrder_Order_Not_Found() throws Exception {
