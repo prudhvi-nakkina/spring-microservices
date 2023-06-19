@@ -25,6 +25,10 @@ spring:
           okta:
             issuer-uri: https://dev-49940529.okta.com/oauth2/default
 
-eureka:
-  client:
-    enabled: false
+microservices:
+  product: http://product-service-svc/product/
+  payment: http://payment-service-svc/payment/
+
+#eureka:
+#  client:
+#    enabled: false
