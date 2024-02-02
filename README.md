@@ -5,3 +5,4 @@ Microservices project using spring boot, Docker and Kubernetes
 * Leveraged Eureka Server for service discovery, Zipkin for log tracing, Redis for Rate Limiting, and Resilience4j for Circuit Breaker functionality
 * Created Docker Files and built Docker Images for all the services and pushed them to Registry
 * Created Kubernetes cluster and configuration files for deployments, StatefulSets, and Persistent Volumes necessary for all the services in the application
+* Automated service build and deployment through Jenkins pipelines, creating Docker images for each microservice and pushing them to an on-premises artifact registry
